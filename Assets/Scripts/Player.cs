@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Variables
     public bool isDead = false;
     public float speed = 5;
     public bool canShoot = true;
@@ -17,8 +18,9 @@ public class Player : MonoBehaviour
 
     private float maxLeft = -8;
     private float maxRight = 8;
-    
 
+    #endregion
+    #region Update
     private void Update()
     {
         if (isDead)
@@ -41,12 +43,14 @@ public class Player : MonoBehaviour
             MoveRight();
         }
     }
-
+    #endregion
+    #region Shoot Laser
     public void ShootLaser()
     {
         StartCoroutine("Shoot");
     }
-
+    #endregion
+    #region Shoot
     IEnumerator Shoot()
     {
         canShoot = false;
@@ -55,13 +59,17 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         canShoot = true;
     }
-
+    #endregion
+    #region Spawn Laser
     public GameObject SpawnLaser()
     {
         GameObject newLaser = Instantiate(laser);
         newLaser.SetActive(true);
         return newLaser;
     }
+    #endregion
+    #region Move Left
+    
     public void MoveLeft()
     {
         transform.Translate(Vector3.up * Time.deltaTime * speed);
@@ -70,6 +78,8 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(maxLeft, -3.22f, 0);
         }
     }
+    #endregion
+    #region Move Right
 
     public void MoveRight()
     {
@@ -79,6 +89,8 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(maxRight, -3.22f, 0);
         }
     }
+    #endregion
+    #region OnCollisionEnter2D
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Asteroid"))
@@ -87,16 +99,19 @@ public class Player : MonoBehaviour
            
         }
     }
+    #endregion
+    #region Death
     public void Death()
     {
         shipSprite.SetActive(false);
         isDead = true;
     }
-
+    #endregion
+    #region Repair Ship
     public void RepairShip()
     {
         shipSprite.SetActive(true);
         isDead = false;
     }
-
+    #endregion
 }

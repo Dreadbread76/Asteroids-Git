@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-    public class Game : MonoBehaviour
-    {
-        public int score = 0;
+public class Game : MonoBehaviour
+{
+    #region Variables
+    public int score = 0;
         public bool gameOver = false;
 
         [SerializeField]
@@ -22,7 +23,10 @@ using UnityEngine.UI;
 
         private static Game instance;
 
-        private void Start()
+    #endregion
+    #region Start
+    //Enable relevant methods and enitities on startup
+    private void Start()
         {
             instance = this;
             titleText.SetActive(true);
@@ -30,9 +34,10 @@ using UnityEngine.UI;
             scoreText.enabled = false;
             NewGame();
         }
-
-        // Update is called once per frame
-        public static void GameOver()
+    #endregion
+    #region Game Over
+    //Enable game over screen and disable player and spawners
+    public static void GameOver()
         {
 
             instance.gameOver = true;
@@ -40,7 +45,10 @@ using UnityEngine.UI;
             instance.ship.GetComponent<Player>().Death();
             instance.gameOverText.SetActive(true);
         }
-        public void NewGame()
+    #endregion
+    #region New Game
+    //Start a fresh new game
+    public void NewGame()
         {
             Debug.Log("Game Initiated");
 
@@ -54,21 +62,30 @@ using UnityEngine.UI;
             spawner.ClearAsteroids();
             gameOverText.SetActive(false);
         }
-        public static void AsteroidDestroyed()
+    #endregion
+    #region Asteroid Destroyed
+    //Increase score when an asteroid is destroyed
+    public static void AsteroidDestroyed()
         {
             instance.score++;
             instance.scoreText.text = "Score: " + instance.score;
         }
-
-        public Player GetPlayer()
+    #endregion
+    #region Get Player
+    //Find the script on the player's ship
+    public Player GetPlayer()
         {
             return ship.GetComponent<Player>();
         }
-
-        public Spawner GetSpawner()
-        {
-            return spawner.GetComponent<Spawner>();
-        }
+    #endregion
+    #region Get Spawner
+    //Find the spawner script on the spawner entity
+    public Spawner GetSpawner()
+    {
+         return spawner.GetComponent<Spawner>();
     }
+    #endregion
+}
+
 
 
