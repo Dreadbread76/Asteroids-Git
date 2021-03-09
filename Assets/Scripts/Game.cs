@@ -28,7 +28,7 @@ using UnityEngine.UI;
             titleText.SetActive(true);
             gameOverText.SetActive(false);
             scoreText.enabled = false;
-
+            NewGame();
         }
 
         // Update is called once per frame
@@ -42,6 +42,8 @@ using UnityEngine.UI;
         }
         public void NewGame()
         {
+            Debug.Log("Game Initiated");
+
             gameOver = false;
             titleText.SetActive(false);
             score = 0;

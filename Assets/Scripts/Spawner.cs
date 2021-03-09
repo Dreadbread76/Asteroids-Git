@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
 
     public void BeginSpawning()
     {
+        Debug.Log("Spawning initiated");
         StartCoroutine("Spawn");
     }
 
@@ -43,7 +44,7 @@ public class Spawner : MonoBehaviour
     {
         foreach (GameObject spawnedAsteroid in asteroids)
         {
-            Destroy(spawnedAsteroid);
+            DestroyImmediate(spawnedAsteroid, true);
         }
 
         asteroids.Clear();
